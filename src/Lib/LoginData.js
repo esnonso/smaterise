@@ -3,9 +3,7 @@ import Data from "@/Mongodb/Models/data";
 
 export const getNoOfUsersLoggedInDaily = async (date) => {
   try {
-    console.log(date);
     const { startOfDay, endDay } = getTodayDateRange(date);
-    console.log(startOfDay, endDay);
     await connectDatabase();
     const users = await Data.aggregate([
       {

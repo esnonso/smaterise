@@ -22,7 +22,7 @@ export async function GET(req, res) {
         },
       },
     ]);
-    console.log(users);
+
     const counter = { active: 0, inactive: 0 };
     for (let val of users) {
       if (val.lastSession.login && val.lastSession.logout) {
