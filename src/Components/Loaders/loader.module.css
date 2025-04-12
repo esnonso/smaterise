@@ -1,0 +1,119 @@
+.container{
+    height: 30%;
+    padding: 1rem;
+    left: 2.5%;
+    width: 95%;
+    background-color: white;
+    position: fixed;
+    top: 30%;
+    z-index: 4000000;
+    animation-name: examples;
+    animation-duration: 1s;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader, .loader-inner {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 3s linear infinite
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #072E5C;
+    animation: prixClipFix 3s linear infinite;
+}
+
+.loader::after {  
+    border-color: #ccc;
+    animation: prixClipFix 3s linear infinite, rotate 2s linear infinite reverse;
+    inset: 6px;
+}
+
+.loader-inner::before,
+.loader-inner::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #072E5C;
+    animation: prixClipFix 3s linear infinite;
+}
+
+.loader-inner::after {
+    border-color: #ccc;
+    animation: prixClipFix 5s linear infinite, rotate 2s linear infinite reverse;
+    inset: 6px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+    }
+
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+    }
+}
+
+@media screen and (min-width:800px) {
+    .container{
+        width: 33.3%;
+        left: 33.3%;
+    }
+}
+
+.loader-inner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 5s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
