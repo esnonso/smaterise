@@ -36,7 +36,7 @@
 }
 
 .loader::after {  
-    border-color: #ccc;
+    border-color: rgba(75, 192, 192, 1);
     animation: prixClipFix 3s linear infinite, rotate 2s linear infinite reverse;
     inset: 6px;
 }
@@ -53,7 +53,7 @@
 }
 
 .loader-inner::after {
-    border-color: #ccc;
+    border-color: rgba(75, 192, 192, 1);
     animation: prixClipFix 5s linear infinite, rotate 2s linear infinite reverse;
     inset: 6px;
 }
