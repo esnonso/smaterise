@@ -18,6 +18,8 @@ export default function LoginData({
   setLoginEndDate,
   loading,
 }) {
+  const date = new Date(endDate);
+  const datePickerFormat = date.toISOString().split("T")[0];
   return (
     <div className="container">
       {loading && <LoaderInner />}
@@ -31,15 +33,12 @@ export default function LoginData({
             </b>{" "}
           </p>
           <div className="filter-container">
-            <label>Select Date</label>
             <input
               type="date"
-              style={{
-                marginLeft: "0.5rem",
-                appearance: "none",
-                WebkitAppearance: "none",
-              }}
+              style={{ marginLeft: "0.5rem" }}
               onChange={(e) => setLoginEndDate(e.target.value)}
+              value={datePickerFormat}
+              className="date"
             />
           </div>
           <Line data={data} options={chartOptions} />{" "}

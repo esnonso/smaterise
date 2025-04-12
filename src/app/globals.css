@@ -34,11 +34,12 @@ img{
 
 .container{
   width: 95%;
-  height: 22rem;
+  height: 25rem;
   margin: 2rem auto;
-  padding: 1rem 1rem 3rem 1rem;
+  padding: 1rem 1rem 4rem 1rem;
   background-color: white;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .container p {
@@ -49,9 +50,8 @@ img{
 .filter-container{
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  padding-right: 3rem;
   box-sizing: border-box;
 }
 
@@ -78,6 +78,15 @@ b{
   margin:0 auto;
   background-color: white;
   padding: 1rem;
+}
+
+.date{
+  font: inherit;
+  color:black;
+  font-size: 16px;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 @media (min-width:1000px) {

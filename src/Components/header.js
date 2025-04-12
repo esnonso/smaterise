@@ -12,7 +12,6 @@ export default function Header() {
       }}
     >
       <h1>Activity Tracker 📈 </h1>
-      <p>Welcome Administrator!</p>
     </header>
   );
 }

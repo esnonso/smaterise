@@ -59,7 +59,7 @@ export default function HomePage({ count, users }) {
         labels: labels,
         datasets: [
           {
-            label: "Logins",
+            label: "Login",
             data: values,
             backgroundColor: "rgba(75, 192, 192, 1)",
           },
@@ -172,7 +172,7 @@ export default function HomePage({ count, users }) {
 
       const { startOfDay } = getTodayDateRange(inactiveEndDate);
       setInActiveData(data.slice(-3));
-      setInActiveEndDate(activeEndDate);
+      setInActiveEndDate(inactiveEndDate);
       setInActiveStartDate(startOfDay);
       setInActiveLoading(false);
     } catch (error) {
@@ -309,7 +309,7 @@ export default function HomePage({ count, users }) {
           startDate={inactiveStartDate}
           endDate={inactiveEndDate}
           loading={inactiveLoading}
-          setActiveEndDate={setInActiveEndDate}
+          setInActiveEndDate={setInActiveEndDate}
         />
 
         <div className="user-container">

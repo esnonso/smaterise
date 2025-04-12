@@ -6,12 +6,15 @@ export default function InActiveUsersChart({
   data,
   startDate,
   endDate,
-  setActiveEndDate,
+  setInActiveEndDate,
 }) {
+  const date = new Date(endDate);
+  const datePickerFormat = date.toISOString().split("T")[0];
+
   return (
     <div className="container">
       {loading && <LoaderInner />}
-      {data && (
+      {data && !loading && (
         <>
           <p>
             <b>
@@ -24,12 +27,10 @@ export default function InActiveUsersChart({
             <label>Select Date</label>
             <input
               type="date"
-              style={{
-                marginLeft: "0.5rem",
-                appearance: "none",
-                WebkitAppearance: "none",
-              }}
-              onChange={(e) => setActiveEndDate(e.target.value)}
+              style={{ marginLeft: "0.5rem" }}
+              onChange={(e) => setInActiveEndDate(e.target.value)}
+              value={datePickerFormat}
+              className="date"
             />
           </div>
 

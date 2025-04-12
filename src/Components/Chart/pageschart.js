@@ -21,23 +21,12 @@ ChartJS.register(
 );
 
 const BarChart = ({ data, startDate, endDate, loading, setVisitedEndDate }) => {
-  // Data for the chart
-  // const data = {
-  //   labels: ["January", "February", "March", "April", "May"], // X-axis labels
-  //   datasets: [
-  //     {
-  //       label: "Visited Pages", // Dataset label
-  //       data: [12, 19, 3, 5, 2], // Data points
-  //       backgroundColor: "rgba(75, 192, 192, 0.2)", // Bar color
-  //       borderColor: "rgba(75, 192, 192, 1)", // Border color
-  //       borderWidth: 1, // Border width
-  //     },
-  //   ],
-  // };
+  const date = new Date(endDate);
+  const datePickerFormat = date.toISOString().split("T")[0];
 
-  // Options for customizing the chart
   const options = {
-    responsive: true, // Make the chart responsive
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top", // Position of the legend
@@ -70,12 +59,10 @@ const BarChart = ({ data, startDate, endDate, loading, setVisitedEndDate }) => {
             <label>Select Date</label>
             <input
               type="date"
-              style={{
-                marginLeft: "0.5rem",
-                appearance: "none",
-                WebkitAppearance: "none",
-              }}
+              style={{ marginLeft: "0.5rem" }}
               onChange={(e) => setVisitedEndDate(e.target.value)}
+              value={datePickerFormat}
+              className="date"
             />
           </div>
           <Bar data={data} options={options} />
