@@ -70,7 +70,11 @@ const BarChart = ({ data, startDate, endDate, loading, setVisitedEndDate }) => {
             <label>Select Date</label>
             <input
               type="date"
-              style={{ marginLeft: "0.5rem" }}
+              style={{
+                marginLeft: "0.5rem",
+                appearance: "none",
+                WebkitAppearance: "none",
+              }}
               onChange={(e) => setVisitedEndDate(e.target.value)}
             />
           </div>

@@ -328,7 +328,9 @@ export default function HomePage({ count, users }) {
             }}
           >
             <p style={{ width: "50%", textAlign: "left" }}>Name</p>
-            <p style={{ width: "50%" }}>Active Login Sessions</p>
+            <p style={{ width: "50%", textAlign: "right" }}>
+              Active Login Sessions
+            </p>
           </div>
           {users.map((d) => (
             <div
@@ -354,7 +356,15 @@ export default function HomePage({ count, users }) {
                 <Image src={d.image} height="40" width="40" alt="profile-img" />
                 <p style={{ marginLeft: "1rem" }}>{d.name}</p>
               </div>
-              <p style={{ width: "50%" }}>{d.activeLoginTimes}</p>
+              <p
+                style={{
+                  width: "50%",
+                  textAlign: "right",
+                  paddingRight: "4rem",
+                }}
+              >
+                {d.activeLoginTimes}
+              </p>
             </div>
           ))}
         </div>

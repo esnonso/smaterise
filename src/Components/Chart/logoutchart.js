@@ -34,7 +34,11 @@ export default function LogoutChart({
             <label>Select Date</label>
             <input
               type="date"
-              style={{ marginLeft: "0.5rem" }}
+              style={{
+                marginLeft: "0.5rem",
+                appearance: "none",
+                WebkitAppearance: "none",
+              }}
               onChange={(e) => setLogOutEndDate(e.target.value)}
             />
           </div>
