@@ -8,13 +8,12 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = ({ loading, data }) => {
   const chartData = {
-    labels: ["Active users", "Inactive users"],
+    labels: ["Signed In Users", "Signed Out users"],
     datasets: [
       {
-        label: "Votes",
+        label: "No of users",
         data: [data.active, data.inactive],
-        backgroundColor: ["#072E5C", "rgba(75, 192, 192, 1)"],
-        borderWidth: 1,
+        backgroundColor: ["rgb(0, 42, 89)", "rgb(75, 192, 192)"], // Bar color
       },
     ],
   };

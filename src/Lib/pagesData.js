@@ -1,11 +1,10 @@
 import { connectDatabase } from "@/Mongodb";
 import Data from "@/Mongodb/Models/data";
+import { getTodayDateRange } from "./dateRange";
 
 export const getNoOfPagesVisited = async (date) => {
   try {
-    console.log(date);
     const { startOfDay, endDay } = getTodayDateRange(date);
-    console.log(startOfDay, endDay);
     await connectDatabase();
     const users = await Data.aggregate([
       {
@@ -38,20 +37,3 @@ export const getNoOfPagesVisited = async (date) => {
     console.log(err);
   }
 };
-
-export function getTodayDateRange(date) {
-  const inputDate = new Date(date);
-
-  // Clone the date to avoid mutating it
-  const endOfToday = new Date(inputDate);
-  endOfToday.setHours(23, 59, 59, 999);
-
-  const startOfSixDaysAgo = new Date(inputDate);
-  startOfSixDaysAgo.setDate(startOfSixDaysAgo.getDate() - 6); // 6 days before input
-  startOfSixDaysAgo.setHours(0, 0, 0, 0);
-
-  return {
-    startOfDay: startOfSixDaysAgo.toISOString(),
-    endDay: endOfToday.toISOString(),
-  };
-}

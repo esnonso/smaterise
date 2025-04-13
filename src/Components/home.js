@@ -6,33 +6,27 @@ import ActiveUsersChart from "./Chart/activechart";
 import InActiveUsersChart from "./Chart/inactiveChart";
 import DonutChart from "./Chart/donutchart";
 import BarChart from "./Chart/pageschart";
-import Image from "next/image";
+import AllUsers from "./Chart/allUsers";
 
 const today = new Date();
-const { endDay } = getTodayDateRange(today);
 
 export default function HomePage({ count, users }) {
   const [dailyLoginData, setDailyLoginData] = useState("");
-  const [loginStartDate, setLoginStartDate] = useState("");
-  const [loginEndDate, setLoginEndDate] = useState(endDay);
+  const [loginEndDate, setLoginEndDate] = useState(today);
   const [loading, setLoading] = useState(true);
   const [dailyLogOutData, setDailyLogOutData] = useState("");
-  const [logOutEndDate, setLogOutEndDate] = useState(endDay);
-  const [logOutStartDate, setLogOutStartDate] = useState("");
+  const [logOutEndDate, setLogOutEndDate] = useState(today);
   const [logoutLoading, setLogoutLoading] = useState(true);
   const [activeData, setActiveData] = useState("");
-  const [activeEndDate, setActiveEndDate] = useState(endDay);
-  const [activeStartDate, setActiveStartDate] = useState("");
+  const [activeEndDate, setActiveEndDate] = useState(today);
   const [activeLoading, setActiveLoading] = useState(true);
   const [inactiveData, setInActiveData] = useState("");
-  const [inactiveEndDate, setInActiveEndDate] = useState(endDay);
-  const [inactiveStartDate, setInActiveStartDate] = useState("");
+  const [inactiveEndDate, setInActiveEndDate] = useState(today);
   const [inactiveLoading, setInActiveLoading] = useState(true);
   const [loginLogOutData, setLoginLogoutData] = useState("");
   const [loginLogOutLoading, setLoginLogoutLoading] = useState(true);
   const [visitedData, setVisitedData] = useState("");
-  const [visitedEndDate, setVisitedEndDate] = useState(endDay);
-  const [visitedStartDate, setVisitedStartDate] = useState("");
+  const [visitedEndDate, setVisitedEndDate] = useState(today);
   const [visitedLoading, setVisitedLoading] = useState(true);
 
   const fetchLoginData = async () => {
@@ -59,16 +53,17 @@ export default function HomePage({ count, users }) {
         labels: labels,
         datasets: [
           {
-            label: "Login",
+            label: "No of users",
             data: values,
-            backgroundColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
           },
         ],
       };
-      const { startOfDay } = getTodayDateRange(loginEndDate);
+
       setDailyLoginData(chartData);
       setLoginEndDate(loginEndDate);
-      setLoginStartDate(startOfDay);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -112,17 +107,17 @@ export default function HomePage({ count, users }) {
         labels: labels,
         datasets: [
           {
-            label: "Logouts",
+            label: "No of users",
             data: values,
-            backgroundColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
           },
         ],
       };
-      const { startOfDay } = getTodayDateRange(logOutEndDate);
+
       setDailyLogOutData(chartData);
       setLogOutEndDate(logOutEndDate);
-      setLogOutStartDate(startOfDay);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     } finally {
@@ -144,10 +139,8 @@ export default function HomePage({ count, users }) {
         throw new Error(response.statusText || "An error occured");
       const data = await response.json();
 
-      const { startOfDay } = getTodayDateRange(activeEndDate);
       setActiveData(data.splice(0, 3));
       setActiveEndDate(activeEndDate);
-      setActiveStartDate(startOfDay);
       setActiveLoading(false);
     } catch (error) {
       console.log(error);
@@ -170,10 +163,8 @@ export default function HomePage({ count, users }) {
         throw new Error(response.statusText || "An error occured");
       const data = await response.json();
 
-      const { startOfDay } = getTodayDateRange(inactiveEndDate);
       setInActiveData(data.slice(-3));
       setInActiveEndDate(inactiveEndDate);
-      setInActiveStartDate(startOfDay);
       setInActiveLoading(false);
     } catch (error) {
       console.log(error);
@@ -214,7 +205,7 @@ export default function HomePage({ count, users }) {
         labels: labels, // X-axis labels
         datasets: [
           {
-            label: "Visited Pages", // Dataset label
+            label: "No of users that visited", // Dataset label
             data: values, // Data points
             backgroundColor: "rgba(75, 192, 192, 0.2)", // Bar color
             borderColor: "rgba(75, 192, 192, 1)", // Border color
@@ -223,10 +214,8 @@ export default function HomePage({ count, users }) {
         ],
       };
 
-      const { startOfDay } = getTodayDateRange(visitedEndDate);
       setVisitedData(chartData);
       setVisitedEndDate(visitedEndDate);
-      setVisitedStartDate(startOfDay);
     } catch (error) {
       console.log(error);
     } finally {
@@ -274,7 +263,6 @@ export default function HomePage({ count, users }) {
 
         <BarChart
           data={visitedData}
-          startDate={visitedStartDate}
           endDate={visitedEndDate}
           loading={visitedLoading}
           setVisitedEndDate={setVisitedEndDate}
@@ -282,7 +270,6 @@ export default function HomePage({ count, users }) {
 
         <LoginChart
           data={dailyLoginData}
-          startDate={loginStartDate}
           endDate={loginEndDate}
           loading={loading}
           setLoginEndDate={setLoginEndDate}
@@ -290,7 +277,6 @@ export default function HomePage({ count, users }) {
 
         <LogoutChart
           data={dailyLogOutData}
-          startDate={logOutStartDate}
           endDate={logOutEndDate}
           loading={logoutLoading}
           setLogOutEndDate={setLogOutEndDate}
@@ -298,7 +284,6 @@ export default function HomePage({ count, users }) {
 
         <ActiveUsersChart
           data={activeData}
-          startDate={activeStartDate}
           endDate={activeEndDate}
           loading={activeLoading}
           setActiveEndDate={setActiveEndDate}
@@ -306,86 +291,13 @@ export default function HomePage({ count, users }) {
 
         <InActiveUsersChart
           data={inactiveData}
-          startDate={inactiveStartDate}
           endDate={inactiveEndDate}
           loading={inactiveLoading}
           setInActiveEndDate={setInActiveEndDate}
         />
 
-        <div className="user-container">
-          <p>
-            <b>All Users</b>
-          </p>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              fontWeight: "600",
-              marginTop: "1rem",
-              padding: "0 1rem",
-            }}
-          >
-            <p style={{ width: "50%", textAlign: "left" }}>Name</p>
-            <p style={{ width: "50%", textAlign: "right" }}>
-              Active Login Sessions
-            </p>
-          </div>
-          {users.map((d) => (
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-between",
-                alignItems: "center",
-                margin: "0.5rem",
-                borderBottom: "1px solid rgba(75, 192, 192, 0.1)",
-                padding: "0.5rem",
-                borderRadius: "5px",
-              }}
-              key={d.id}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "50%",
-                }}
-              >
-                <Image src={d.image} height="40" width="40" alt="profile-img" />
-                <p style={{ marginLeft: "1rem" }}>{d.name}</p>
-              </div>
-              <p
-                style={{
-                  width: "50%",
-                  textAlign: "right",
-                  paddingRight: "4rem",
-                }}
-              >
-                {d.activeLoginTimes}
-              </p>
-            </div>
-          ))}
-        </div>
+        <AllUsers users={users} />
       </div>
     </div>
   );
-}
-
-export function getTodayDateRange(date) {
-  const inputDate = new Date(date);
-
-  // Clone the date to avoid mutating it
-  const endOfToday = new Date(inputDate);
-  endOfToday.setHours(23, 59, 59, 999);
-
-  const startOfSixDaysAgo = new Date(inputDate);
-  startOfSixDaysAgo.setDate(startOfSixDaysAgo.getDate() - 6); // 6 days before input
-  startOfSixDaysAgo.setHours(0, 0, 0, 0);
-
-  return {
-    startOfDay: startOfSixDaysAgo.toISOString(),
-    endDay: endOfToday.toISOString(),
-  };
 }

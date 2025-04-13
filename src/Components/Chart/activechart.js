@@ -4,24 +4,24 @@ import Image from "next/image";
 export default function ActiveUsersChart({
   loading,
   data,
-  startDate,
   endDate,
   setActiveEndDate,
 }) {
   const date = new Date(endDate);
   const datePickerFormat = date.toISOString().split("T")[0];
+
+  function formatMillisecondsToHoursAndMinutes(ms) {
+    const totalMinutes = Math.floor(ms / (1000 * 60));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours}h ${minutes}m`;
+  }
+
   return (
     <div className="container">
       {loading && <LoaderInner />}
       {data && !loading && (
         <>
-          <p>
-            <b>
-              Most Active Users Last 7 days starting{" "}
-              {new Date(startDate).toDateString()} To{" "}
-              {new Date(endDate).toDateString()}
-            </b>
-          </p>
           <div className="filter-container">
             <label>Select Date</label>
             <input
@@ -32,7 +32,11 @@ export default function ActiveUsersChart({
               className="date"
             />
           </div>
-
+          <p className="text">
+            <b>
+              Top active users 7 days ending {new Date(endDate).toDateString()}
+            </b>
+          </p>
           <div
             style={{
               width: "100%",
@@ -72,7 +76,9 @@ export default function ActiveUsersChart({
                 />
                 <p style={{ marginLeft: "1rem" }}>{d.name}</p>
               </div>
-              <p style={{ width: "50%" }}>{d.totalTime}</p>
+              <p style={{ width: "50%" }}>
+                {formatMillisecondsToHoursAndMinutes(d.totalTime)}
+              </p>
             </div>
           ))}
         </>

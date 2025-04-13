@@ -1,10 +1,10 @@
 import { connectDatabase } from "@/Mongodb";
 import Data from "@/Mongodb/Models/data";
+import { getTodayDateRange } from "./dateRange";
 
 export const getNoOfUsersLoggedOutDaily = async (date) => {
   try {
     const { startOfDay, endDay } = getTodayDateRange(date);
-
     await connectDatabase();
     const users = await Data.aggregate([
       {
@@ -24,8 +24,11 @@ export const getNoOfUsersLoggedOutDaily = async (date) => {
     ]);
 
     const allSessions = users.map((u) => u.sessions).flat();
+    const sortedSessions = allSessions.sort(
+      (a, b) => new Date(a.logout) - new Date(b.logout)
+    );
     const counter = {};
-    for (let session of allSessions) {
+    for (let session of sortedSessions) {
       const val = session.login.split("T")[0];
       counter[val] = (counter[val] || 0) + 1;
     }
@@ -34,16 +37,3 @@ export const getNoOfUsersLoggedOutDaily = async (date) => {
     console.log(err);
   }
 };
-
-export function getTodayDateRange(date) {
-  const today = new Date(date);
-  const endOfToday = new Date(today.setHours(23, 59, 59, 999)).toISOString(); // Set to 00:00:00 of today
-
-  const startOfLastSevenDays = new Date(today);
-  startOfLastSevenDays.setDate(today.getDate() - 6); // Add 6 days
-  startOfLastSevenDays.setHours(0, 0, 0, 0);
-
-  const start = startOfLastSevenDays.toISOString();
-
-  return { startOfDay: start, endDay: endOfToday };
-}

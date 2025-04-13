@@ -7,32 +7,56 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Title,
+  Tooltip,
+  Legend,
 } from "chart.js";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-export default function LoginData({
-  data,
-  startDate,
-  endDate,
-  setLoginEndDate,
-  loading,
-}) {
+export default function LoginData({ data, endDate, setLoginEndDate, loading }) {
   const date = new Date(endDate);
   const datePickerFormat = date.toISOString().split("T")[0];
+
+  const options = {
+    ...chartOptions,
+    plugins: {
+      title: {
+        display: true,
+        text:
+          "User logins last 7 days ending " + new Date(endDate).toDateString(),
+        color: "#666666",
+        font: {
+          size: 16,
+          family: '"Quicksand", sans-serif',
+        },
+        padding: {
+          top: 10,
+          bottom: 5,
+        },
+      },
+      legend: {
+        display: true,
+        position: "top",
+      },
+    },
+  };
+
   return (
     <div className="container">
       {loading && <LoaderInner />}
       {data && !loading && (
         <>
-          <p>
-            <b>
-              Users Login last 7 days starting{" "}
-              {new Date(startDate).toDateString()} To{" "}
-              {new Date(endDate).toDateString()}
-            </b>{" "}
-          </p>
           <div className="filter-container">
+            <label>Change date</label>
             <input
               type="date"
               style={{ marginLeft: "0.5rem" }}
@@ -41,7 +65,7 @@ export default function LoginData({
               className="date"
             />
           </div>
-          <Line data={data} options={chartOptions} />{" "}
+          <Line data={data} options={options} />{" "}
         </>
       )}
     </div>

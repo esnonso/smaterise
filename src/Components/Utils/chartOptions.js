@@ -9,9 +9,9 @@ const chartOptions = {
         },
         stepSize: 1,
         font: {
-          family: "inherit", // Custom font family
-          size: 12, // Font size for Y-axis ticks
-          lineHeight: 1.2, // Line height for ticks
+          family: "inherit",
+          size: 12,
+          lineHeight: 1.2,
         },
       },
       beginAtZero: true,
@@ -19,9 +19,9 @@ const chartOptions = {
     x: {
       ticks: {
         font: {
-          family: "inherit", // Custom font family for X-axis
-          size: 12, // Font size for X-axis ticks
-          lineHeight: 1.2, // Line height for ticks
+          family: "inherit",
+          size: 12,
+          lineHeight: 1.2,
         },
       },
     },

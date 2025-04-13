@@ -20,20 +20,38 @@ export default function LogoutChart({
 }) {
   const date = new Date(endDate);
   const datePickerFormat = date.toISOString().split("T")[0];
+
+  const options = {
+    ...chartOptions,
+    plugins: {
+      title: {
+        display: true,
+        text:
+          "User logouts last 7 days ending " + new Date(endDate).toDateString(),
+        color: "#666666",
+        font: {
+          size: 16,
+          family: '"Quicksand", sans-serif',
+        },
+        padding: {
+          top: 10,
+          bottom: 5,
+        },
+      },
+      legend: {
+        display: true,
+        position: "top",
+      },
+    },
+  };
+
   return (
     <div className="container">
       {loading && <LoaderInner />}
       {data && !loading && (
         <>
-          <p>
-            <b>
-              Users Logout last 7 days starting{" "}
-              {new Date(startDate).toDateString()} To{" "}
-              {new Date(endDate).toDateString()}
-            </b>{" "}
-          </p>
           <div className="filter-container">
-            <label>Select Date</label>
+            <label>Change Date</label>
             <input
               type="date"
               style={{ marginLeft: "0.5rem" }}
@@ -42,7 +60,7 @@ export default function LogoutChart({
               className="date"
             />
           </div>
-          <Line data={data} options={chartOptions} />{" "}
+          <Line data={data} options={options} />{" "}
         </>
       )}
     </div>

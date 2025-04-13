@@ -4,25 +4,24 @@ import Image from "next/image";
 export default function InActiveUsersChart({
   loading,
   data,
-  startDate,
   endDate,
   setInActiveEndDate,
 }) {
   const date = new Date(endDate);
   const datePickerFormat = date.toISOString().split("T")[0];
 
+  function formatMillisecondsToHoursAndMinutes(ms) {
+    const totalMinutes = Math.floor(ms / (1000 * 60));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours}h ${minutes}m`;
+  }
+
   return (
     <div className="container">
       {loading && <LoaderInner />}
       {data && !loading && (
         <>
-          <p>
-            <b>
-              Most Inactive Users Last 7 days starting{" "}
-              {new Date(startDate).toDateString()} To{" "}
-              {new Date(endDate).toDateString()}
-            </b>
-          </p>
           <div className="filter-container">
             <label>Select Date</label>
             <input
@@ -34,6 +33,12 @@ export default function InActiveUsersChart({
             />
           </div>
 
+          <p className="text">
+            <b>
+              Top inactive users last 7 days ending{" "}
+              {new Date(endDate).toDateString()}
+            </b>
+          </p>
           <div
             style={{
               width: "100%",
@@ -73,7 +78,9 @@ export default function InActiveUsersChart({
                 />
                 <p style={{ marginLeft: "1rem" }}>{d.name}</p>
               </div>
-              <p style={{ width: "50%" }}>{d.totalTime}</p>
+              <p style={{ width: "50%" }}>
+                {formatMillisecondsToHoursAndMinutes(d.totalTime)}
+              </p>
             </div>
           ))}
         </>

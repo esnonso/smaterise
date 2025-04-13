@@ -29,11 +29,17 @@ const BarChart = ({ data, startDate, endDate, loading, setVisitedEndDate }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top", // Position of the legend
+        position: "top",
       },
       title: {
-        display: true, // Display chart title
-        text: "Pages Visited Data", // Chart title
+        display: true,
+        text:
+          "Pages Visited: 7-Day summary ending " +
+          new Date(endDate).toDateString(),
+        font: {
+          size: 16,
+          family: '"Quicksand", sans-serif',
+        },
       },
     },
     scales: {
@@ -48,15 +54,8 @@ const BarChart = ({ data, startDate, endDate, loading, setVisitedEndDate }) => {
       {loading && <LoaderInner />}
       {data && !loading && (
         <>
-          <p>
-            <b>
-              Pages visited last 7 days starting{" "}
-              {new Date(startDate).toDateString()} To{" "}
-              {new Date(endDate).toDateString()}
-            </b>{" "}
-          </p>
           <div className="filter-container">
-            <label>Select Date</label>
+            <label>Change Date</label>
             <input
               type="date"
               style={{ marginLeft: "0.5rem" }}

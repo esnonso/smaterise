@@ -1,5 +1,6 @@
 import { connectDatabase } from "@/Mongodb";
 import Data from "@/Mongodb/Models/data";
+import { getTodayDateRange } from "./dateRange";
 
 export const getActiveUsers = async (date) => {
   try {
@@ -54,16 +55,3 @@ export const getActiveUsers = async (date) => {
     console.log(err);
   }
 };
-
-export function getTodayDateRange(date) {
-  const today = new Date(date);
-  const endOfToday = new Date(today.setHours(23, 59, 59, 999)).toISOString(); // Set to 00:00:00 of today
-
-  const startOfLastSevenDays = new Date(today);
-  startOfLastSevenDays.setDate(today.getDate() - 6); // Add 6 days
-  startOfLastSevenDays.setHours(0, 0, 0, 0);
-
-  const start = startOfLastSevenDays.toISOString();
-
-  return { startOfDay: start, endDay: endOfToday };
-}
