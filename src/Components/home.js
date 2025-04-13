@@ -205,7 +205,7 @@ export default function HomePage({ count, users }) {
         labels: labels, // X-axis labels
         datasets: [
           {
-            label: "No of users that visited", // Dataset label
+            label: "No of times visited", // Dataset label
             data: values, // Data points
             backgroundColor: "rgba(75, 192, 192, 0.2)", // Bar color
             borderColor: "rgba(75, 192, 192, 1)", // Border color
