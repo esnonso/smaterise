@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = ({ loading, data }) => {
   const chartData = {
-    labels: ["Signed In Users", "Signed Out users"],
+    labels: ["Online Users", "Offline users"],
     datasets: [
       {
         label: "No of users",

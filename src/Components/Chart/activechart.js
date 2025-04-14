@@ -34,7 +34,8 @@ export default function ActiveUsersChart({
           </div>
           <p className="text">
             <b>
-              Top active users 7 days ending {new Date(endDate).toDateString()}
+              Top active users last 7 days ending{" "}
+              {new Date(endDate).toDateString()}
             </b>
           </p>
           <div
